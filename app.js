@@ -98,6 +98,39 @@ app.route("/articles/:articleTitle")
     )
 })
 
+// req.body = {
+//     title : "",
+//     content : ""
+// }
+
+.patch((req,res)=>{
+    Article.update(
+        {title : req.params.articleTitle},
+        // {$set : {conten : "", title : ""}}
+        {$set : req.body},
+        function (err) {
+            if(!err) {
+                res.send("Succesfully updated data")
+            }else {
+                res.send(err)
+            }
+        }
+    )
+})
+
+.delete(function (req,res) {
+    Article.deleteOne(
+        {title : req.params.articleTitle},
+        function (err) {
+            if (!err) {
+                res.send("Sucessfully deleted article")
+            }else{
+                res.send(err)
+            }
+        }
+    )
+})
+
 
 
 app.listen(3000, function () {
